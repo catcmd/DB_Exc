@@ -5,7 +5,7 @@ create table Studenten
 );
 
 /************************************************************************/
-/* Create Tables														*/
+/* Create Tables							*/
 /************************************************************************/
 create table Dozenten
 (
@@ -43,33 +43,33 @@ create table student_in_veranstaltung
 
 
 /************************************************************************/
-/* Insert Data															*/
+/* Insert Data								*/
 /************************************************************************/
 insert into Studenten(name, matrikel) values
 	('Klaus',		'1234'),
 	('Hans',		'3456'),
-	('Herberdt',	'3461'),
+	('Herberdt',		'3461'),
 	('Meemet',		'7328');
 
 insert into Dozenten(name, buero, tel) values
-	('Schmidt', 'A3.05', '08031787878'),
-	('Höfig',	'A2.04', '08031454545'),
+	('Schmidt', 	'A3.05', '08031787878'),
+	('HÃ¶fig',	'A2.04', '08031454545'),
 	('Ferret',	'A4.05', '08031242424');
 
 insert into Veranstaltungen(name, semester, raum, dozent) values
-	('Prog1',			'1', 'R0.29', 'Höfig'),
+	('Prog1',			'1', 'R0.29', 'HÃ¶fig'),
 	('Prog2',			'2', 'B0.04', 'Schmidt'),
-	('Hochschulsport',	'1', 'A0.15', 'Ferret'),
-	('DB',				'3', 'E0.08', 'Höfig');
+	('Hochschulsport',		'1', 'A0.15', 'Ferret'),
+	('DB',				'3', 'E0.08', 'HÃ¶fig');
 
 insert into student_in_veranstaltung(student, veranstaltung, semester, note) values
-	('1234', 'Prog1',	'1', '2.0'),
-	('3456', 'Prog2',	'2', '4.0'),
-	('3461', 'DB',		'3', '3.2'),
-	('7328', 'Hochschulsport', '1', '5.0');
+	('1234', 'Prog1',		'1', '2.0'),
+	('3456', 'Prog2',		'2', '4.0'),
+	('3461', 'DB',			'3', '3.2'),
+	('7328', 'Hochschulsport', 	'1', '5.0');
 
 /************************************************************************/
-/* Select from Tables													*/
+/* Select from Tables							*/
 /************************************************************************/
 select * from Studenten;
 select * from Dozenten;
@@ -78,7 +78,7 @@ select * from student_in_veranstaltung;
 
 
 /************************************************************************/
-/* Delet																*/
+/* Delet								*/
 /************************************************************************/
 drop table student_in_veranstaltung;
 drop table Veranstaltungen;
