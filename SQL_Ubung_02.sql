@@ -41,25 +41,33 @@ create table student_in_veranstaltung
 	primary key(student, semester, veranstaltung), 
 );
 
+/************************************************************************/
+/* Alter and add new column/spalte								*/
+/************************************************************************/
+
+alter table Studenten add geburtsdatum date;
+
+alter table Studenten alter column geburtsdatum date NOT NULL;
+
 
 /************************************************************************/
 /* Insert Data								*/
 /************************************************************************/
-insert into Studenten(name, matrikel) values
-	('Klaus',		'1234'),
-	('Hans',		'3456'),
-	('Herberdt',		'3461'),
-	('Meemet',		'7328');
+insert into Studenten(name, matrikel, geburtsdatum) values
+	('Klaus',		'1234', '1999.03.13'),
+	('Hans',		'3456', '1999.03.03'),
+	('Herberdt',	'3461', '1999.07.10'),
+	('Meemet',		'7328', '1999.05.15');
 
 insert into Dozenten(name, buero, tel) values
 	('Schmidt', 	'A3.05', '08031787878'),
-	('Höfig',	'A2.04', '08031454545'),
-	('Ferret',	'A4.05', '08031242424');
+	('Höfig',		'A2.04', '08031454545'),
+	('Ferret',		'A4.05', '08031242424');
 
 insert into Veranstaltungen(name, semester, raum, dozent) values
 	('Prog1',			'1', 'R0.29', 'Höfig'),
 	('Prog2',			'2', 'B0.04', 'Schmidt'),
-	('Hochschulsport',		'1', 'A0.15', 'Ferret'),
+	('Hochschulsport',	'1', 'A0.15', 'Ferret'),
 	('DB',				'3', 'E0.08', 'Höfig');
 
 insert into student_in_veranstaltung(student, veranstaltung, semester, note) values
@@ -77,6 +85,7 @@ select * from Veranstaltungen;
 select * from student_in_veranstaltung;
 
 
+
 /************************************************************************/
 /* Delet								*/
 /************************************************************************/
@@ -84,3 +93,6 @@ drop table student_in_veranstaltung;
 drop table Veranstaltungen;
 drop table Studenten;
 drop table Dozenten;
+
+--alter table Studenten drop column geburtsdatum;
+
