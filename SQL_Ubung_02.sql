@@ -65,16 +65,58 @@ insert into Dozenten(name, buero, tel) values
 	('Ferret',		'A4.05', '08031242424');
 
 insert into Veranstaltungen(name, semester, raum, dozent) values
-	('Prog1',			'1', 'R0.29', 'Höfig'),
-	('Prog2',			'2', 'B0.04', 'Schmidt'),
-	('Hochschulsport',	'1', 'A0.15', 'Ferret'),
-	('DB',				'3', 'E0.08', 'Höfig');
+	('Prog1',			'ws17', 'R0.29', 'Höfig'),
+	('Prog2',			'ws17', 'B0.04', 'Schmidt'),
+	('Hochschulsport',	'ws17', 'A0.15', 'Ferret'),
+	('DB',				'ws17', 'E0.08', 'Höfig');
+	
 
 insert into student_in_veranstaltung(student, veranstaltung, semester, note) values
-	('1234', 'Prog1',		'1', '2.0'),
-	('3456', 'Prog2',		'2', '4.0'),
-	('3461', 'DB',			'3', '3.2'),
-	('7328', 'Hochschulsport', 	'1', '5.0');
+	('1234', 'Prog1',		'ws17', '2.0'),
+	('3456', 'Prog2',		'ws17', '4.0'),
+	('3461', 'DB',			'ws17', '3.2'),
+	('7328', 'Hochschulsport', 	'ws17', '5.0');
+
+/************************************************************************/
+/* 2.4. Insert Data						*/
+/************************************************************************/
+insert into Studenten(name, matrikel, geburtsdatum) values
+	('Eva', '3333', '01-03-1990'),
+	('Luise', '3334','01-04-1990'),
+	('Daniel', '3335', '01-05-1990'),
+	('Dominik','3336','01-06-1990');
+
+insert into Dozenten(name, buero, tel) values
+	('Klaus',		'C2.01', '123'),
+	('Maria',		'D1.20', null);
+
+insert into Veranstaltungen(name, semester, raum, dozent) values
+	('Tanzgymnastik',	'ws17',	'D1.11' , 'Klaus'),
+	('Tanzgymnastik',	'ss18',	'D1.11' , 'Klaus'),
+	('Sackhüpfen',		'ws18', null,	'Klaus'),
+	('Drachenfliegen',	'ss17',	'beach', 'Maria'),
+	('Drachenfliegen',	'ss18',	'beach', 'Maria'),
+	('Beachvolleyball',	'ss17',	'beach', 'Maria'),
+	('Beachvolleyball',	'ss18',	'beach', 'Maria');
+
+
+
+insert into student_in_veranstaltung(student, veranstaltung, semester, note) values
+	('3333', 'Beachvolleyball', 'ss18', null),
+	('3334', 'Beachvolleyball', 'ss18', null),
+	('3335', 'Beachvolleyball','ss18', null),
+	
+	('3336', 'Drachenfliegen', 'ss17', null),
+	('3333', 'Drachenfliegen', 'ss17', null),
+	
+	('3334', 'Tanzgymnastik', 'ws17', null),
+	('3335', 'Tanzgymnastik', 'ws17', null);
+	
+update student_in_veranstaltung set note = '4.0' where veranstaltung = 'Beachvolleyball';
+update Dozenten set buero = 'D0.22' where name = 'Maria';
+
+
+
 
 /************************************************************************/
 /* Select from Tables							*/
