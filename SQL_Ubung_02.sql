@@ -54,7 +54,7 @@ alter table Studenten alter column geburtsdatum date NOT NULL;
 /************************************************************************/
 /* Insert Data								*/
 /************************************************************************/
-/*insert into Studenten(name, matrikel, geburtsdatum) values
+insert into Studenten(name, matrikel, geburtsdatum) values
 	('Klaus',		'1234', '2018.03.13'),
 	('Hans',		'3456', '1999.03.03'),
 	('Herberdt',	'3461', '1999.07.10'),
@@ -76,7 +76,7 @@ insert into student_in_veranstaltung(student, veranstaltung, semester, note) val
 	('1234', 'Prog1',		'ws17', '2.0'),
 	('3456', 'Prog2',		'ws17', '4.0'),
 	('3461', 'DB',			'ws17', '3.2'),
-	('7328', 'Hochschulsport', 	'ws17', '5.0');*/
+	('7328', 'Hochschulsport', 	'ws17', '5.0');
 
 /************************************************************************/
 /* 2.4. Insert Data						*/
@@ -157,8 +157,7 @@ select Studenten.name, datediff(year, Studenten.geburtsdatum, getdate())
 /************************************************************************/
 --3.2.1
 select student_in_veranstaltung.student, Veranstaltungen.name, Veranstaltungen.raum, student_in_veranstaltung.semester 
-from Veranstaltungen 
-join student_in_veranstaltung 
+from Veranstaltungen join student_in_veranstaltung 
 on Veranstaltungen.semester = student_in_veranstaltung.semester 
 and Veranstaltungen.name = student_in_veranstaltung.veranstaltung
 where student_in_veranstaltung.semester like 'ss18';
@@ -175,6 +174,17 @@ order by s1.geburtsdatum -- ordnet nach geburtsdatum bzw coloumn
 
 --SELECT CONCAT('SQL ', 'Tutorial', 's', 'fun!') AS ConcatenatedString; --The CONCAT() function adds two or more expressions together.
 --3.2.3
+
+--3.3.1
+select Veranstaltungen.dozent, Veranstaltungen.name, student_in_veranstaltung.note 
+from Veranstaltungen join student_in_veranstaltung 
+on Veranstaltungen.name = student_in_veranstaltung.veranstaltung
+and Veranstaltungen.semester = student_in_veranstaltung.semester
+where student_in_veranstaltung.note <= all 
+(
+select student_in_veranstaltung.note
+)
+order by student_in_veranstaltung.note 
 
 
 
