@@ -157,34 +157,86 @@ select Studenten.name, datediff(year, Studenten.geburtsdatum, getdate())
 /************************************************************************/
 --3.2.1
 select student_in_veranstaltung.student, Veranstaltungen.name, Veranstaltungen.raum, student_in_veranstaltung.semester 
-from Veranstaltungen join student_in_veranstaltung 
+	from Veranstaltungen join student_in_veranstaltung 
 on Veranstaltungen.semester = student_in_veranstaltung.semester 
 and Veranstaltungen.name = student_in_veranstaltung.veranstaltung
 where student_in_veranstaltung.semester like 'ss18';
 
 --3.2.2
-select s1.name, s2.name as 'Ist älter als: '
+select s1.name, s2.name as 'Ist juenger als: ', s1.geburtsdatum
 from Studenten as s1, Studenten as s2
 	where s1.geburtsdatum < any -- vergleicht alle geburtsdaten von s3
 	(
-		Select s2.geburtsdatum
+		select S2.geburtsdatum
 		from Studenten
 	)
-order by s1.geburtsdatum -- ordnet nach geburtsdatum bzw coloumn
+order by s1.geburtsdatum 
 
 --SELECT CONCAT('SQL ', 'Tutorial', 's', 'fun!') AS ConcatenatedString; --The CONCAT() function adds two or more expressions together.
 --3.2.3
+/*select 'Hallo ich bin ' + Dozenten.name as 'was?'
+from Dozenten
+where Dozenten.buero like 'C%'
+
+select chmmod.ch, chmmod.du
+from (
+	select 'Du' as du, 'CHHHHHHhhh' as ch
+	) as chmmod 
+
+	
+select 
+cast(student_in_veranstaltung.student as varchar) + 
+case
+when student_in_veranstaltung.note = '4.0' then 'U got Punked!'
+else 'yay?'
+end as 'txt'
+from
+student_in_veranstaltung*/
+
+select
+	concat(Studenten.name, ' hat im ', student_in_veranstaltung.semester, 
+			' hat an der ', student_in_veranstaltung.veranstaltung, ' teilgenommen und die Note ', 
+			student_in_veranstaltung.note, ' erhalten. ') +
+	case
+		when student_in_veranstaltung.note <= ' 4.0 ' then ' Herzlichen Glückwunsch, sie haben bestanden!'
+		
+		when student_in_veranstaltung.note > ' 4.0 ' then ' Leider haben, sie nicht bestanden.'
+
+		else 'Es wurde noch keine Note festgestellt'
+	end as 'Text'
+from 
+	student_in_veranstaltung join Studenten 
+	on student_in_veranstaltung.student = Studenten.matrikel
+where
+	student_in_veranstaltung.semester like 'ws17' 
+	or 
+	student_in_veranstaltung.semester like 'ss17' 
+	or
+	student_in_veranstaltung.semester like 'ws18' 
 
 --3.3.1
-select Veranstaltungen.dozent, Veranstaltungen.name, student_in_veranstaltung.note 
-from Veranstaltungen join student_in_veranstaltung 
-on Veranstaltungen.name = student_in_veranstaltung.veranstaltung
-and Veranstaltungen.semester = student_in_veranstaltung.semester
-where student_in_veranstaltung.note <= all 
-(
-select student_in_veranstaltung.note
-)
-order by student_in_veranstaltung.note 
+--select Veranstaltungen.dozent, Veranstaltungen.name, student_in_veranstaltung.note 
+--from Veranstaltungen join student_in_veranstaltung 
+--on Veranstaltungen.name = student_in_veranstaltung.veranstaltung
+--and Veranstaltungen.semester = student_in_veranstaltung.semester
+--where student_in_veranstaltung.note <= all 
+--(
+--select student_in_veranstaltung.note
+--)
+--order by student_in_veranstaltung.note 
+
+
+select 
+	concat(Veranstaltungen.dozent, ' beste vergabene Note ist ', min(student_in_veranstaltung.note)) as 'Best',
+	concat(Veranstaltungen.dozent, ' schlechteste vergabene Note ist ', max(student_in_veranstaltung.note)) as 'Worst'
+
+from student_in_veranstaltung join Veranstaltungen on Veranstaltungen.name = student_in_veranstaltung.veranstaltung
+
+where student_in_veranstaltung.note is not null
+
+group by Veranstaltungen.dozent
+
+
 
 
 
